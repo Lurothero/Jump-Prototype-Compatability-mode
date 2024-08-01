@@ -42,6 +42,8 @@ Jump={
 
 [layer_names]
 
+2d_physics/layer_1="Player Layer"
+2d_physics/layer_9="Enemy"
 2d_physics/layer_32="Default Ground Collision Layer"
 
 [rendering]

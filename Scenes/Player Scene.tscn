@@ -448,7 +448,7 @@ height = 36.0
 [node name="Player Root - Node2D" type="Node2D"]
 
 [node name="Player - KineBody" type="CharacterBody2D" parent="."]
-collision_mask = 2147483649
+collision_mask = 2147483904
 script = ExtResource("1_vali4")
 movement_speed = 500.0
 air_acceleration_speed = 0.1
@@ -458,7 +458,6 @@ ground_deceleration_speed = 0.5
 jump_height = 100.0
 jump_peak = 0.5
 jump_descend = 0.5
-wall_jump_force = 1200
 variable_jump_damping = 0.0
 wall_jump_angle = 60.952
 
@@ -468,7 +467,7 @@ libraries = {
 }
 autoplay = "Pink Man - Idle"
 
-[node name="Player - Collider" type="CollisionShape2D" parent="Player - KineBody"]
+[node name="Player - Collider" type="CollisionShape2D" parent="Player - KineBody" groups=["Player"]]
 shape = SubResource("CapsuleShape2D_ncv0d")
 
 [node name="Player - Sprite" type="Sprite2D" parent="Player - KineBody"]

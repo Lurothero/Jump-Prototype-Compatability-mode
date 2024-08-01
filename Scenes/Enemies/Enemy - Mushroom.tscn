@@ -1,0 +1,255 @@
+[gd_scene load_steps=11 format=3 uid="uid://bqpa12qchqalp"]
+
+[ext_resource type="Texture2D" uid="uid://d2c7pilr265ji" path="res://Assets/Enemies/Mushroom/Run (32x32).png" id="1_5j6hq"]
+[ext_resource type="Script" path="res://Scripts/Enemy - KineBody.gd" id="1_p7pvo"]
+[ext_resource type="Texture2D" uid="uid://o8hisfvo2hxc" path="res://Assets/Enemies/Mushroom/Hit.png" id="2_1kf4q"]
+[ext_resource type="Texture2D" uid="uid://chkbddfrnlnr8" path="res://Assets/Enemies/Mushroom/Idle (32x32).png" id="3_jnhq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_msyuh"]
+size = Vector2(34, 25)
+
+[sub_resource type="Animation" id="Animation_ksnp3"]
+resource_name = "Mushroom - Hit"
+length = 0.250005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy - Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1kf4q")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy - Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy - Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Enemy - Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_s73l5"]
+resource_name = "Mushroom - Idle"
+length = 1.40001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy - Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_jnhq5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy - Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy - Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Enemy - Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_t6uw3"]
+resource_name = "Mushroom - Run"
+length = 1.60001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy - Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5j6hq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy - Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy - Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Enemy - Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_ovok6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy - Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5j6hq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy - Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy - Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Enemy - Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d1xi5"]
+_data = {
+"Mushroom - Hit": SubResource("Animation_ksnp3"),
+"Mushroom - Idle": SubResource("Animation_s73l5"),
+"Mushroom - Run": SubResource("Animation_t6uw3"),
+"RESET": SubResource("Animation_ovok6")
+}
+
+[node name="Enemy - Mushroom" type="Node2D" groups=["Enemy"]]
+
+[node name="Enemy - KineBody" type="CharacterBody2D" parent="."]
+collision_layer = 256
+collision_mask = 2147483905
+script = ExtResource("1_p7pvo")
+
+[node name="Enemy - Sprite" type="Sprite2D" parent="Enemy - KineBody"]
+texture = ExtResource("1_5j6hq")
+hframes = 16
+
+[node name="Enemy - Collision" type="CollisionShape2D" parent="Enemy - KineBody"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_msyuh")
+
+[node name="Enemy - AnimPlayer" type="AnimationPlayer" parent="Enemy - KineBody"]
+libraries = {
+"": SubResource("AnimationLibrary_d1xi5")
+}
+autoplay = "Mushroom - Idle"
+
+[node name="Area2D" type="Area2D" parent="Enemy - KineBody"]
+
+[node name="Enemy - CollisionDectection" type="CollisionShape2D" parent="Enemy - KineBody/Area2D"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_msyuh")
+
+[connection signal="area_entered" from="Enemy - KineBody/Area2D" to="Enemy - KineBody" method="_on_area_2d_area_entered"]

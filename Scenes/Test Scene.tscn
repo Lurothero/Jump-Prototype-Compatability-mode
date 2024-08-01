@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci0b8uaxopu66"]
+[gd_scene load_steps=4 format=3 uid="uid://ci0b8uaxopu66"]
 
 [ext_resource type="TileSet" uid="uid://dm5rdvxsruadx" path="res://Tiles/Tile Sets/Default Ground TileSet.tres" id="1_g1o87"]
 [ext_resource type="PackedScene" uid="uid://c36nr3t4831my" path="res://Scenes/Player Scene.tscn" id="2_yn88d"]
+[ext_resource type="PackedScene" uid="uid://bqpa12qchqalp" path="res://Scenes/Enemies/Enemy - Mushroom.tscn" id="3_xuxtq"]
 
 [node name="Level Root - Node 2D" type="Node2D"]
 
@@ -12,3 +13,18 @@ layer_0/tile_data = PackedInt32Array(2162691, 393216, 0, 2162692, 458752, 0, 216
 
 [node name="Player Root - Node2D" parent="." instance=ExtResource("2_yn88d")]
 position = Vector2(221, 225)
+
+[node name="Enemy - Mushroom" parent="." instance=ExtResource("3_xuxtq")]
+position = Vector2(561, 146)
+
+[node name="Enemy - Mushroom2" parent="." instance=ExtResource("3_xuxtq")]
+position = Vector2(338, 226)
+
+[node name="Enemy - Mushroom3" parent="." instance=ExtResource("3_xuxtq")]
+position = Vector2(467, 244)
+
+[node name="Enemy - Mushroom4" parent="." instance=ExtResource("3_xuxtq")]
+position = Vector2(516, 307)
+
+[node name="Enemy - Mushroom5" parent="." instance=ExtResource("3_xuxtq")]
+position = Vector2(557, 359)
