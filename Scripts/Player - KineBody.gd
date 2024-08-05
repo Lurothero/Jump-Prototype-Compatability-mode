@@ -27,6 +27,8 @@ extends CharacterBody2D
 @export var wall_jump_force = 600
 @export_range(0.0,1.0) var variable_jump_damping = 1.0
 @export_range(0.0,90.0) var wall_jump_angle:float = 45.0
+##Use this to change the jump height after defeating enemies
+@export var enemy_jump_height = 200.0
 
 ##Ratio of how strong gravity should be affecting when wall sliding. 0 for no gravity(sticking to the wall), while 1 is no influence(effectively no slowdown)
 @export_range(0.0,1.0) var wall_slide_speed:float = 0.1
@@ -112,6 +114,9 @@ func CMD_JUMP():
 	if  jumpCounter < jumpCount:
 		velocity.y =  jump_velocity
 		jump_incremented.emit()
+		
+func JUMP_ENEMY():
+	velocity.y = enemy_jump_height
 		
 func get_gravity(gravity_modifier:float)->float:
 	if velocity.y < 0.0 :

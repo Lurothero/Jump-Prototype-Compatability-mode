@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqpa12qchqalp"]
+[gd_scene load_steps=12 format=3 uid="uid://bqpa12qchqalp"]
 
 [ext_resource type="Texture2D" uid="uid://d2c7pilr265ji" path="res://Assets/Enemies/Mushroom/Run (32x32).png" id="1_5j6hq"]
 [ext_resource type="Script" path="res://Scripts/Enemy - KineBody.gd" id="1_p7pvo"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://chkbddfrnlnr8" path="res://Assets/Enemies/Mushroom/Idle (32x32).png" id="3_jnhq5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msyuh"]
-size = Vector2(34, 25)
+size = Vector2(27, 18)
 
 [sub_resource type="Animation" id="Animation_ksnp3"]
 resource_name = "Mushroom - Hit"
@@ -225,11 +225,14 @@ _data = {
 "RESET": SubResource("Animation_ovok6")
 }
 
-[node name="Enemy - Mushroom" type="Node2D" groups=["Enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3xrn"]
+size = Vector2(30, 23)
 
-[node name="Enemy - KineBody" type="CharacterBody2D" parent="."]
+[node name="Enemy - Mushroom" type="Node2D"]
+
+[node name="Enemy - KineBody" type="CharacterBody2D" parent="." groups=["Enemy"]]
 collision_layer = 256
-collision_mask = 2147483905
+collision_mask = 2147483649
 script = ExtResource("1_p7pvo")
 
 [node name="Enemy - Sprite" type="Sprite2D" parent="Enemy - KineBody"]
@@ -237,7 +240,7 @@ texture = ExtResource("1_5j6hq")
 hframes = 16
 
 [node name="Enemy - Collision" type="CollisionShape2D" parent="Enemy - KineBody"]
-position = Vector2(0, 6)
+position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_msyuh")
 
 [node name="Enemy - AnimPlayer" type="AnimationPlayer" parent="Enemy - KineBody"]
@@ -246,10 +249,10 @@ libraries = {
 }
 autoplay = "Mushroom - Idle"
 
-[node name="Area2D" type="Area2D" parent="Enemy - KineBody"]
+[node name="Enemy - Detection Area" type="Area2D" parent="Enemy - KineBody"]
 
-[node name="Enemy - CollisionDectection" type="CollisionShape2D" parent="Enemy - KineBody/Area2D"]
-position = Vector2(0, 4.5)
-shape = SubResource("RectangleShape2D_msyuh")
+[node name="Enemy - HitBox" type="CollisionShape2D" parent="Enemy - KineBody/Enemy - Detection Area"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_n3xrn")
 
-[connection signal="area_entered" from="Enemy - KineBody/Area2D" to="Enemy - KineBody" method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Enemy - KineBody/Enemy - Detection Area" to="Enemy - KineBody" method="_on_area_2d_body_entered"]

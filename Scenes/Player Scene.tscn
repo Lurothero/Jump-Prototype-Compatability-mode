@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c36nr3t4831my"]
+[gd_scene load_steps=21 format=3 uid="uid://c36nr3t4831my"]
 
 [ext_resource type="Texture2D" uid="uid://do6hr70ygiblq" path="res://Assets/Main Characters/Pink Man/Idle (32x32).png" id="1_83x0l"]
 [ext_resource type="Script" path="res://Scripts/Player - KineBody.gd" id="1_vali4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bsu2rmgymer4l" path="res://Assets/Main Characters/Pink Man/Hit (32x32).png" id="5_tjwsn"]
 [ext_resource type="Texture2D" uid="uid://bygmtq4spep6p" path="res://Assets/Main Characters/Pink Man/Fall (32x32).png" id="6_neeyj"]
 [ext_resource type="Texture2D" uid="uid://c76u1th1h57fq" path="res://Assets/Main Characters/Pink Man/Double Jump (32x32).png" id="7_h0ni8"]
+[ext_resource type="Script" path="res://Scenes/Player - Detection.gd" id="9_o3akb"]
 
 [sub_resource type="Animation" id="Animation_1c60j"]
 resource_name = "Pink Man - Double Jump"
@@ -442,12 +443,14 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ncv0d"]
-radius = 13.0
-height = 36.0
+radius = 11.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_autuf"]
+size = Vector2(26, 35)
 
 [node name="Player Root - Node2D" type="Node2D"]
 
-[node name="Player - KineBody" type="CharacterBody2D" parent="."]
+[node name="Player - KineBody" type="CharacterBody2D" parent="." groups=["Player"]]
 collision_mask = 2147483904
 script = ExtResource("1_vali4")
 movement_speed = 500.0
@@ -467,7 +470,8 @@ libraries = {
 }
 autoplay = "Pink Man - Idle"
 
-[node name="Player - Collider" type="CollisionShape2D" parent="Player - KineBody" groups=["Player"]]
+[node name="Player - Collider" type="CollisionShape2D" parent="Player - KineBody"]
+position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_ncv0d")
 
 [node name="Player - Sprite" type="Sprite2D" parent="Player - KineBody"]
@@ -477,5 +481,14 @@ hframes = 11
 [node name="Camera2D" type="Camera2D" parent="Player - KineBody"]
 zoom = Vector2(1.29, 1.29)
 
+[node name="Player - Detection" type="Area2D" parent="Player - KineBody"]
+collision_mask = 256
+script = ExtResource("9_o3akb")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player - KineBody/Player - Detection"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_autuf")
+
 [connection signal="jump_incremented" from="Player - KineBody" to="Player - KineBody" method="_on_jump_incremented"]
 [connection signal="jump_refreshed" from="Player - KineBody" to="Player - KineBody" method="_on_jump_refreshed"]
+[connection signal="body_entered" from="Player - KineBody/Player - Detection" to="Player - KineBody/Player - Detection" method="_on_body_entered"]
