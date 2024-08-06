@@ -456,14 +456,17 @@ script = ExtResource("1_vali4")
 movement_speed = 500.0
 air_acceleration_speed = 0.1
 air_deceleration_speed = 0.5
-ground_acceleration_speed = 0.035
-ground_deceleration_speed = 0.049
+ground_acceleration_speed = 0.5
+ground_deceleration_speed = 0.5
 jump_height = 100.0
 jump_peak = 0.5
 jump_descend = 0.5
-jumpCount = 3
+jumpCount = null
+wall_jump_force = null
 variable_jump_damping = 0.0
-wall_gravity_damp = 0.245
+wall_jump_angle = 60.952
+enemy_jump_height = null
+wall_slide_speed = null
 
 [node name="Player - AnimPlayer" type="AnimationPlayer" parent="Player - KineBody"]
 libraries = {

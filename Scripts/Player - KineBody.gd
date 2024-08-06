@@ -2,6 +2,13 @@
 
 extends CharacterBody2D
 
+
+##HEY CREATE FRICTION INSTEAD OF LERPING EVERYWHERE?
+
+
+
+
+
 @export_category("Movement Properties")
 ##The speed of which the player moves
 @export var movement_speed = 300.0
@@ -28,7 +35,7 @@ extends CharacterBody2D
 @export_range(0.0,1.0) var variable_jump_damping = 1.0
 @export_range(0.0,90.0) var wall_jump_angle:float = 45.0
 ##Use this to change the jump height after defeating enemies
-@export var enemy_jump_height = 200.0
+@export var enemy_jump_height = 500.0
 
 ##Ratio of how strong gravity should be affecting when wall sliding. 0 for no gravity(sticking to the wall), while 1 is no influence(effectively no slowdown)
 @export_range(0.0,1.0) var wall_slide_speed:float = 0.1
@@ -38,10 +45,21 @@ extends CharacterBody2D
 
 @onready var current_wall_slide_speed:float = 1.0
 @onready var jump_angle = wall_jump_angle+180
-@onready var jump_velocity:float = ((2.0 * jump_height) / jump_peak) * -1.0
-@onready var jump_gravity:float = ((-2.0 * jump_height) / (jump_peak * jump_peak)) * -1.0
-@onready var fall_gravity:float  = ((-2.0 * jump_height) / (jump_descend * jump_descend)) * -1.0
 
+
+#@onready var jump_velocity:float = ((2.0 * jump_height) / jump_peak) * -1.0
+#@onready var jump_gravity:float = ((-2.0 * jump_height) / (jump_peak * jump_peak)) * -1.0
+#@onready var fall_gravity:float  = ((-2.0 * jump_height) / (jump_descend * jump_descend)) * -1.0
+
+
+##old Gravity system
+@export_category("OLD GRAVITY")
+@export var OLD_gravity = 2000.0
+@export var OLD_jump_force = 500.0
+@export var OLD_GRAVITY_LIMIT = 600.0
+@export var WALL_GRAVITY = 100.0
+@export var WALL_GRAVITY_LIMIT = 200.0
+@export_range(0.0,1.0) var wall_gravity_damp = 0.1
 var jumpCounter = 0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 #var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -60,19 +78,31 @@ func _physics_process(delta):
 			var direction_vector:Vector2 = Vector2(Input.get_axis("MoveLeft","MoveRight"),Input.is_action_just_pressed("Jump"))
 			var wall_normal = get_wall_normal()
 			var dot_product = direction_vector.dot(wall_normal)
-
+			print (dot_product)
 			if dot_product == -1:
-				current_wall_slide_speed = wall_slide_speed
-				velocity.y == 0
+
+				SET_GRAVITY(lerpf(velocity.y,WALL_GRAVITY,wall_gravity_damp))
+				
 			elif dot_product == 0:
-				velocity.y += (get_gravity(1.0)*delta)
-				current_wall_slide_speed = 1.0#Kinda hard coded but it should be the scale of gravity, which 1 is normal 
+				
+				##PHYSICS BASED
+				#velocity.y += (get_gravity(1.0)*delta)
+				GRAVITY(OLD_gravity,OLD_GRAVITY_LIMIT)
+				
+				#current_wall_slide_speed = 1.0#Kinda hard coded but it should be the scale of gravity, which 1 is normal 
 		else:
-			velocity.y += (get_gravity(1.0)) * delta
-		
-		
+			
+			##PHYSICS BASED
+			#velocity.y += (get_gravity(1.0)) * delta
+			
+			##OLD SYSTEM
+			GRAVITY(OLD_gravity,OLD_GRAVITY_LIMIT)
+	print ("Current Velocity is: " + str(velocity.y))
 		
 	if is_on_floor():
+		jump_refreshed.emit()
+		
+	if is_on_wall():
 		jump_refreshed.emit()
 		
 	if Input.is_action_just_pressed("Jump"):
@@ -110,25 +140,54 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		#print("I collided with ", collision.get_normal())
 
+func GRAVITY(gravity,limit):
+
+	if velocity.y > limit:
+		velocity.y == limit
+		print("true")
+	else:
+		velocity.y += gravity * get_process_delta_time()
+	
+pass
+
+func SET_GRAVITY(set_gravity):
+		
+	velocity.y = set_gravity
+pass
+
+
 func CMD_JUMP():
 	if  jumpCounter < jumpCount:
-		velocity.y =  jump_velocity
+		##PHYSICS BASED
+		#velocity.y =  jump_velocity
+		
+		##OLD SYSTEM
+		velocity.y = -OLD_jump_force
 		jump_incremented.emit()
 		
 func JUMP_ENEMY():
-	velocity.y = enemy_jump_height
-		
-func get_gravity(gravity_modifier:float)->float:
-	if velocity.y < 0.0 :
-		return jump_gravity
-	else:
-		return fall_gravity
+	velocity.y = -enemy_jump_height
+	jump_refreshed.emit()
 	
+func get_gravity(gravity_modifier:float)->float:
+	
+	##PHYSICS BASED
+	#if velocity.y < 0.0 :
+		#return jump_gravity
+	#else:
+		#return fall_gravity
+		
+		##OLD SYSTEM
+	return OLD_gravity*gravity_modifier
+pass
 
+#NEVER USED
 func refresh_jump():
 	if is_on_floor():
 		jump_refreshed.emit()
-
+	if is_on_wall():
+		jump_refreshed.emit()
+		
 func _on_jump_refreshed() -> void:
 	jumpCounter = 0
 	pass # Replace with function body.
@@ -140,8 +199,6 @@ func _on_jump_incremented() -> void:
 
 func jump_off_wall():
 		# Use move_and_collide for specific collision handling
-
-
 		print("You Touched the wall and tried to jump off")
 		print(get_last_slide_collision().get_normal())
 
