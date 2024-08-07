@@ -78,7 +78,7 @@ func _physics_process(delta):
 			var direction_vector:Vector2 = Vector2(Input.get_axis("MoveLeft","MoveRight"),Input.is_action_just_pressed("Jump"))
 			var wall_normal = get_wall_normal()
 			var dot_product = direction_vector.dot(wall_normal)
-			print (dot_product)
+			#print (dot_product)
 			if dot_product == -1:
 
 				SET_GRAVITY(lerpf(velocity.y,WALL_GRAVITY,wall_gravity_damp))
@@ -97,7 +97,7 @@ func _physics_process(delta):
 			
 			##OLD SYSTEM
 			GRAVITY(OLD_gravity,OLD_GRAVITY_LIMIT)
-	print ("Current Velocity is: " + str(velocity.y))
+	#print ("Current Velocity is: " + str(velocity.y))
 		
 	if is_on_floor():
 		jump_refreshed.emit()
@@ -144,7 +144,7 @@ func GRAVITY(gravity,limit):
 
 	if velocity.y > limit:
 		velocity.y == limit
-		print("true")
+		#print("true")
 	else:
 		velocity.y += gravity * get_process_delta_time()
 	
@@ -199,8 +199,8 @@ func _on_jump_incremented() -> void:
 
 func jump_off_wall():
 		# Use move_and_collide for specific collision handling
-		print("You Touched the wall and tried to jump off")
-		print(get_last_slide_collision().get_normal())
+		#print("You Touched the wall and tried to jump off")
+		#print(get_last_slide_collision().get_normal())
 
 		#convert degress to radsa
 		var angle_in_rads = deg_to_rad(jump_angle)
@@ -223,5 +223,5 @@ func jump_off_wall():
 		velocity.x = jump_vector.x * wall_jump_force * (get_last_slide_collision().get_normal().x *-1)
 		velocity.y = jump_vector.y*wall_jump_force
 		
-		print ("Velocity is: " + str(velocity.x) + "," + str(velocity.y) )
+		#print ("Velocity is: " + str(velocity.x) + "," + str(velocity.y) )
 		pass

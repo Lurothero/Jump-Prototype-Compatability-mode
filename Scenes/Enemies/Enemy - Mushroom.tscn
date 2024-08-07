@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqpa12qchqalp"]
+[gd_scene load_steps=14 format=3 uid="uid://bqpa12qchqalp"]
 
 [ext_resource type="Texture2D" uid="uid://d2c7pilr265ji" path="res://Assets/Enemies/Mushroom/Run (32x32).png" id="1_5j6hq"]
 [ext_resource type="Script" path="res://Scripts/Enemy - KineBody.gd" id="1_p7pvo"]
 [ext_resource type="Texture2D" uid="uid://o8hisfvo2hxc" path="res://Assets/Enemies/Mushroom/Hit.png" id="2_1kf4q"]
 [ext_resource type="Texture2D" uid="uid://chkbddfrnlnr8" path="res://Assets/Enemies/Mushroom/Idle (32x32).png" id="3_jnhq5"]
+[ext_resource type="Script" path="res://Scripts/Enemy - Raycast Foward.gd" id="5_oc72j"]
+[ext_resource type="Script" path="res://Scripts/Enemy - Raycast Down.gd" id="6_hq703"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msyuh"]
 size = Vector2(27, 18)
@@ -255,4 +257,19 @@ autoplay = "Mushroom - Idle"
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_n3xrn")
 
+[node name="Enemy - RayCasts" type="Node2D" parent="Enemy - KineBody"]
+
+[node name="Enemy - Raycast Foward" type="RayCast2D" parent="Enemy - KineBody/Enemy - RayCasts"]
+position = Vector2(0, 12)
+rotation = 1.5708
+target_position = Vector2(-9.53674e-07, 14)
+collision_mask = 2147483905
+script = ExtResource("5_oc72j")
+
+[node name="Enemy - Raycast Down" type="RayCast2D" parent="Enemy - KineBody/Enemy - RayCasts"]
+position = Vector2(-12, 0)
+collision_mask = 2147483648
+script = ExtResource("6_hq703")
+
+[connection signal="turn_around" from="Enemy - KineBody" to="Enemy - KineBody" method="_on_turn_around"]
 [connection signal="body_entered" from="Enemy - KineBody/Enemy - Detection Area" to="Enemy - KineBody" method="_on_area_2d_body_entered"]
