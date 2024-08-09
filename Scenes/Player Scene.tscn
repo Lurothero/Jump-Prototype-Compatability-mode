@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c36nr3t4831my"]
+[gd_scene load_steps=23 format=3 uid="uid://c36nr3t4831my"]
 
 [ext_resource type="Texture2D" uid="uid://do6hr70ygiblq" path="res://Assets/Main Characters/Pink Man/Idle (32x32).png" id="1_83x0l"]
 [ext_resource type="Script" path="res://Scripts/Player - KineBody.gd" id="1_vali4"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bygmtq4spep6p" path="res://Assets/Main Characters/Pink Man/Fall (32x32).png" id="6_neeyj"]
 [ext_resource type="Texture2D" uid="uid://c76u1th1h57fq" path="res://Assets/Main Characters/Pink Man/Double Jump (32x32).png" id="7_h0ni8"]
 [ext_resource type="Script" path="res://Scenes/Player - Detection.gd" id="9_o3akb"]
+[ext_resource type="Script" path="res://addons/ProCam2D/scripts/pcam_target.gd" id="10_i2r2r"]
+[ext_resource type="Script" path="res://addons/ProCam2D/scripts/procam2d.gd" id="11_bipe3"]
 
 [sub_resource type="Animation" id="Animation_1c60j"]
 resource_name = "Pink Man - Double Jump"
@@ -455,9 +457,9 @@ collision_mask = 2147483904
 script = ExtResource("1_vali4")
 movement_speed = 500.0
 air_acceleration_speed = 0.1
-air_deceleration_speed = 0.5
-ground_acceleration_speed = 0.035
-ground_deceleration_speed = 0.049
+air_deceleration_speed = 0.1
+ground_acceleration_speed = 0.1
+ground_deceleration_speed = 0.1
 jump_height = 100.0
 jump_peak = 0.5
 jump_descend = 0.5
@@ -479,16 +481,50 @@ shape = SubResource("CapsuleShape2D_ncv0d")
 texture = ExtResource("1_83x0l")
 hframes = 11
 
-[node name="Camera2D" type="Camera2D" parent="Player - KineBody"]
-zoom = Vector2(1.29, 1.29)
-
 [node name="Player - Detection" type="Area2D" parent="Player - KineBody"]
 collision_mask = 256
 script = ExtResource("9_o3akb")
+knockback_angle = 45.0
+knockback_force = 500
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player - KineBody/Player - Detection"]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_autuf")
+
+[node name="PCamTarget" type="Node2D" parent="Player - KineBody"]
+script = ExtResource("10_i2r2r")
+
+[node name="ProCam2D" type="Node2D" parent="."]
+z_index = 4096
+script = ExtResource("11_bipe3")
+process_frame = 2
+follow_mode = 0
+drag_type = 0
+smooth_drag = true
+smooth_drag_speed = Vector2(5, 5)
+max_distance = Vector2(100000, 100000)
+offset = Vector2(0, 0)
+smooth_offset = true
+smooth_offset_speed = 2.0
+allow_rotation = true
+smooth_rotation = true
+smooth_rotation_speed = 5.0
+zoom = 1.25
+smooth_zoom = true
+smooth_zoom_speed = 5.0
+auto_zoom = true
+min_zoom = 0.0
+max_zoom = 1.0
+zoom_margin = 5.0
+smooth_limit = true
+left_limit = -10000000
+right_limit = 10000000
+top_limit = -10000000
+bottom_limit = 10000000
+use_h_margins = false
+use_v_margins = false
+working_radius = 2000.0
+global_debug_draw = false
 
 [connection signal="jump_incremented" from="Player - KineBody" to="Player - KineBody" method="_on_jump_incremented"]
 [connection signal="jump_refreshed" from="Player - KineBody" to="Player - KineBody" method="_on_jump_refreshed"]

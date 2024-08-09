@@ -15,9 +15,18 @@ run/main_scene="res://Scenes/Test Scene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+procam="*res://addons/ProCam2D/scripts/autoload.gd"
+
 [display]
 
 window/size/initial_position_type=2
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ProCam2D/plugin.cfg")
 
 [input]
 

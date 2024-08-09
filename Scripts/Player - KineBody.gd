@@ -202,7 +202,7 @@ func jump_off_wall():
 		#print("You Touched the wall and tried to jump off")
 		#print(get_last_slide_collision().get_normal())
 
-		#convert degress to radsa
+		#convert degress to rads
 		var angle_in_rads = deg_to_rad(jump_angle)
 		#convert x and y with sin and cos
 
